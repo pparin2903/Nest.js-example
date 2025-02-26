@@ -21,7 +21,7 @@ let AuthController = class AuthController {
         this.authService = authService;
     }
     async login(body) {
-        const user = await this.authService.validateUser(body.user_name, body.password, body.ou);
+        const user = await this.authService.validateUser(body.user_name, body.password);
         if (!user) {
             throw new common_1.UnauthorizedException('Invalid credentials');
         }
@@ -32,6 +32,7 @@ exports.AuthController = AuthController;
 __decorate([
     (0, roles_decorator_1.Public)(),
     (0, common_1.Post)('login'),
+    (0, common_1.HttpCode)(200),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

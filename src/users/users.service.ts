@@ -24,8 +24,7 @@ export class UsersService {
 
   async findByUsername(
     user_name: string,
-    password: string,
-    ou: string,
+    password: string
   ): Promise<User> {
     const user = await this.userRepository.query(
       `
@@ -42,9 +41,9 @@ export class UsersService {
         LEFT JOIN user_details usd ON us.id = usd.user_id
         LEFT JOIN roles r ON usd.role_id = r.id
         LEFT JOIN ous ou ON usd.ou_id = ou.id
-        WHERE user_name = ? AND password = ? AND us.user_status IS TRUE AND ou.ou_code = ? LIMIT 1
+        WHERE user_name = ? AND password = ? AND us.user_status IS TRUE LIMIT 1
       `,
-      [user_name, password, ou],
+      [user_name, password],
     );
     if (!user) {
       throw new Error(`Data Not Found!`);

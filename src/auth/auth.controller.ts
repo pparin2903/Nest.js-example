@@ -1,4 +1,10 @@
-import { Controller, Post, Body, UnauthorizedException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  UnauthorizedException,
+  HttpCode,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './roles.decorator';
 // import { HttpService } from '@nestjs/axios';
@@ -19,11 +25,11 @@ export class AuthController {
 
   @Public()
   @Post('login')
+  @HttpCode(200)
   async login(@Body() body) {
     const user = await this.authService.validateUser(
       body.user_name,
       body.password,
-      body.ou,
     );
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');

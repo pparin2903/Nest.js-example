@@ -5,7 +5,7 @@ export declare class UsersService {
     constructor(userRepository: Repository<User>);
     findUsers(): Promise<User[]>;
     findUser(id: number): Promise<User>;
-    findByUsername(user_name: string, password: string, ou: string): Promise<User>;
+    findByUsername(user_name: string, password: string): Promise<User>;
     createUser(user: User): Promise<User>;
     updateUser(id: number, user: Partial<User>): Promise<User>;
     deleteUser(id: number): Promise<void>;

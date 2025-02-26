@@ -31,7 +31,7 @@ let UsersService = class UsersService {
         }
         return user;
     }
-    async findByUsername(user_name, password, ou) {
+    async findByUsername(user_name, password) {
         const user = await this.userRepository.query(`
         SELECT 
           us.id, 
@@ -46,8 +46,8 @@ let UsersService = class UsersService {
         LEFT JOIN user_details usd ON us.id = usd.user_id
         LEFT JOIN roles r ON usd.role_id = r.id
         LEFT JOIN ous ou ON usd.ou_id = ou.id
-        WHERE user_name = ? AND password = ? AND us.user_status IS TRUE AND ou.ou_code = ? LIMIT 1
-      `, [user_name, password, ou]);
+        WHERE user_name = ? AND password = ? AND us.user_status IS TRUE LIMIT 1
+      `, [user_name, password]);
         if (!user) {
             throw new Error(`Data Not Found!`);
         }
