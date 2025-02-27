@@ -16,16 +16,21 @@ exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const roles_decorator_1 = require("./roles.decorator");
+const users_service_1 = require("../users/users.service");
+const config_enum_1 = require("../enum/config.enum");
 let AuthController = class AuthController {
-    constructor(authService) {
+    constructor(authService, userService) {
         this.authService = authService;
+        this.userService = userService;
     }
     async login(body) {
         const user = await this.authService.validateUser(body.user_name, body.password);
         if (!user) {
             throw new common_1.UnauthorizedException('Invalid credentials');
         }
-        return this.authService.login(user);
+        const token = await this.authService.login(user);
+        this.userService.updateUserState(token.access_token, config_enum_1.UserState.ONLINE);
+        return token;
     }
 };
 exports.AuthController = AuthController;
@@ -40,6 +45,7 @@ __decorate([
 ], AuthController.prototype, "login", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService,
+        users_service_1.UsersService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

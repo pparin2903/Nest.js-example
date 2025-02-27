@@ -12,7 +12,7 @@ import { RolesService } from './roles.service';
 import { Role } from './roles.entity';
 import { Roles } from 'src/auth/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { UserRole } from 'src/enum/role.enum';
+import { UserRole } from 'src/enum/config.enum';
 
 @Controller('roles')
 export class RolesController {

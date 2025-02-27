@@ -23,11 +23,18 @@ export class User {
   last_name: string;
   @Column({ type: 'boolean' })
   user_status: boolean;
-  
+  @Column({ type: 'varchar', length: 255 })
+  user_state: string;
+
   @Column({ type: 'varchar', length: 255 })
   update_by: string;
   @CreateDateColumn()
   create_date: Date;
   @UpdateDateColumn()
   update_date: Date;
+}
+
+export interface UserState {
+  id: number;
+  user_state: string;
 }

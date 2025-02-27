@@ -45,6 +45,10 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({ type: 'varchar', length: 255 }),
     __metadata("design:type", String)
+], User.prototype, "user_state", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'varchar', length: 255 }),
+    __metadata("design:type", String)
 ], User.prototype, "update_by", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),

@@ -12,7 +12,7 @@ import { MenusService } from './menus.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Roles } from 'src/auth/roles.decorator';
 import { Menu } from './menus.entity';
-import { UserRole } from 'src/enum/role.enum';
+import { UserRole } from 'src/enum/config.enum';
 
 @Controller('menus')
 export class MenusController {

@@ -37,12 +37,8 @@ exports.AuthModule = AuthModule = __decorate([
             axios_1.HttpModule,
         ],
         controllers: [auth_controller_1.AuthController],
-        providers: [
-            auth_service_1.AuthService,
-            jwt_auth_guard_1.JwtAuthGuard,
-            roles_guard_1.RolesGuard,
-        ],
-        exports: [jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, jwt_1.JwtModule]
+        providers: [auth_service_1.AuthService, jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard],
+        exports: [jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, jwt_1.JwtModule],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map

@@ -7,16 +7,28 @@ import {
   Delete,
   Put,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { User } from './users.entity';
+import { User, UserState } from './users.entity';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Public, Roles } from 'src/auth/roles.decorator';
-import { UserRole } from 'src/enum/role.enum';
+import { UserRole } from 'src/enum/config.enum';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @UseGuards(JwtAuthGuard)
+  @Put('/update-state')
+  updateUserState(@Req() req, @Body() payload: UserState): Promise<void> {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      throw new Error('Invalid authorization token');
+    }
+    const token = authHeader.split(' ')[1];
+    return this.usersService.updateUserState(token, payload.user_state);
+  }
 
   @UseGuards(JwtAuthGuard)
   @Roles(UserRole.ADMIN, UserRole.SUPERADMIN)

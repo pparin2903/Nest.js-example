@@ -18,10 +18,18 @@ const users_service_1 = require("./users.service");
 const users_entity_1 = require("./users.entity");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const roles_decorator_1 = require("../auth/roles.decorator");
-const role_enum_1 = require("../enum/role.enum");
+const config_enum_1 = require("../enum/config.enum");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
+    }
+    updateUserState(req, payload) {
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            throw new Error('Invalid authorization token');
+        }
+        const token = authHeader.split(' ')[1];
+        return this.usersService.updateUserState(token, payload.user_state);
     }
     findUsers() {
         return this.usersService.findUsers();
@@ -42,7 +50,16 @@ let UsersController = class UsersController {
 exports.UsersController = UsersController;
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, roles_decorator_1.Roles)(role_enum_1.UserRole.ADMIN, role_enum_1.UserRole.SUPERADMIN),
+    (0, common_1.Put)('/update-state'),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "updateUserState", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, roles_decorator_1.Roles)(config_enum_1.UserRole.ADMIN, config_enum_1.UserRole.SUPERADMIN),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -50,7 +67,7 @@ __decorate([
 ], UsersController.prototype, "findUsers", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, roles_decorator_1.Roles)(role_enum_1.UserRole.ADMIN, role_enum_1.UserRole.SUPERADMIN),
+    (0, roles_decorator_1.Roles)(config_enum_1.UserRole.ADMIN, config_enum_1.UserRole.SUPERADMIN),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -67,7 +84,7 @@ __decorate([
 ], UsersController.prototype, "createUser", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, roles_decorator_1.Roles)(role_enum_1.UserRole.ADMIN, role_enum_1.UserRole.SUPERADMIN),
+    (0, roles_decorator_1.Roles)(config_enum_1.UserRole.ADMIN, config_enum_1.UserRole.SUPERADMIN),
     (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -77,7 +94,7 @@ __decorate([
 ], UsersController.prototype, "updateUser", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, roles_decorator_1.Roles)(role_enum_1.UserRole.ADMIN, role_enum_1.UserRole.SUPERADMIN),
+    (0, roles_decorator_1.Roles)(config_enum_1.UserRole.ADMIN, config_enum_1.UserRole.SUPERADMIN),
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),

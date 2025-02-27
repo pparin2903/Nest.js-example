@@ -18,7 +18,7 @@ const roles_service_1 = require("./roles.service");
 const roles_entity_1 = require("./roles.entity");
 const roles_decorator_1 = require("../auth/roles.decorator");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
-const role_enum_1 = require("../enum/role.enum");
+const config_enum_1 = require("../enum/config.enum");
 let RolesController = class RolesController {
     constructor(rolesService) {
         this.rolesService = rolesService;
@@ -42,7 +42,7 @@ let RolesController = class RolesController {
 exports.RolesController = RolesController;
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, roles_decorator_1.Roles)(role_enum_1.UserRole.ADMIN, role_enum_1.UserRole.SUPERADMIN),
+    (0, roles_decorator_1.Roles)(config_enum_1.UserRole.ADMIN, config_enum_1.UserRole.SUPERADMIN),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -50,7 +50,7 @@ __decorate([
 ], RolesController.prototype, "findRoles", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, roles_decorator_1.Roles)(role_enum_1.UserRole.ADMIN, role_enum_1.UserRole.SUPERADMIN),
+    (0, roles_decorator_1.Roles)(config_enum_1.UserRole.ADMIN, config_enum_1.UserRole.SUPERADMIN),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -59,7 +59,7 @@ __decorate([
 ], RolesController.prototype, "findRole", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, roles_decorator_1.Roles)(role_enum_1.UserRole.ADMIN, role_enum_1.UserRole.SUPERADMIN),
+    (0, roles_decorator_1.Roles)(config_enum_1.UserRole.ADMIN, config_enum_1.UserRole.SUPERADMIN),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -68,7 +68,7 @@ __decorate([
 ], RolesController.prototype, "createRole", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, roles_decorator_1.Roles)(role_enum_1.UserRole.ADMIN, role_enum_1.UserRole.SUPERADMIN),
+    (0, roles_decorator_1.Roles)(config_enum_1.UserRole.ADMIN, config_enum_1.UserRole.SUPERADMIN),
     (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -78,7 +78,7 @@ __decorate([
 ], RolesController.prototype, "updateRole", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, roles_decorator_1.Roles)(role_enum_1.UserRole.ADMIN, role_enum_1.UserRole.SUPERADMIN),
+    (0, roles_decorator_1.Roles)(config_enum_1.UserRole.ADMIN, config_enum_1.UserRole.SUPERADMIN),
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),

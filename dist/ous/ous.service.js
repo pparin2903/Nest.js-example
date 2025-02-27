@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const ous_entity_1 = require("./ous.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
+const jwt_1 = require("@nestjs/jwt");
 let OusService = class OusService {
-    constructor(ouRepository) {
+    constructor(ouRepository, jwtService) {
         this.ouRepository = ouRepository;
+        this.jwtService = jwtService;
     }
     async findOus() {
         return this.ouRepository.find();
@@ -54,11 +56,27 @@ let OusService = class OusService {
     async deleteOu(id) {
         await this.ouRepository.delete(id);
     }
+    async findOuByUser(token) {
+        const decoded = this.jwtService.decode(token);
+        const ou_data = await this.ouRepository.query(`
+        SELECT
+          ou.ou_code,
+          ou.ou_name
+        FROM ous ou
+        LEFT JOIN user_details ud ON ou.id = ud.ou_id
+        WHERE ou_status IS TRUE AND ud.user_id = ?
+      `, [decoded.id]);
+        if (!ou_data) {
+            throw new Error(`Data Not Found!`);
+        }
+        return ou_data;
+    }
 };
 exports.OusService = OusService;
 exports.OusService = OusService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(ous_entity_1.Ou)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        jwt_1.JwtService])
 ], OusService);
 //# sourceMappingURL=ous.service.js.map

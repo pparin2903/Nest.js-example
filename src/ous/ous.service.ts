@@ -2,12 +2,14 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Ou } from './ous.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class OusService {
   constructor(
     @InjectRepository(Ou)
     private ouRepository: Repository<Ou>,
+    private jwtService: JwtService,
   ) {}
 
   async findOus(): Promise<Ou[]> {
@@ -35,7 +37,7 @@ export class OusService {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
-    if(typeof ou.ou_status !== 'boolean'){
+    if (typeof ou.ou_status !== 'boolean') {
       throw new HttpException(
         { message: `ou_status can't be string` },
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -55,5 +57,24 @@ export class OusService {
 
   async deleteOu(id: number): Promise<void> {
     await this.ouRepository.delete(id);
+  }
+
+  async findOuByUser(token: string) {
+    const decoded = this.jwtService.decode(token);
+    const ou_data = await this.ouRepository.query(
+      `
+        SELECT
+          ou.ou_code,
+          ou.ou_name
+        FROM ous ou
+        LEFT JOIN user_details ud ON ou.id = ud.ou_id
+        WHERE ou_status IS TRUE AND ud.user_id = ?
+      `,
+      [decoded.id],
+    );
+    if (!ou_data) {
+      throw new Error(`Data Not Found!`);
+    }
+    return ou_data;
   }
 }

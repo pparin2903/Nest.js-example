@@ -4,3 +4,8 @@ export declare const UserRole: {
     ADMIN: string;
     SUPERADMIN: string;
 };
+export declare const UserState: {
+    ONLINE: string;
+    OFFLINE: string;
+    WAITING: string;
+};

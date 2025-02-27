@@ -11,7 +11,7 @@ import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(), // โหลดค่า .env
+    ConfigModule.forRoot(),
     UsersModule,
     PassportModule,
     JwtModule.registerAsync({
@@ -25,11 +25,7 @@ import { HttpModule } from '@nestjs/axios';
     HttpModule,
   ],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    JwtAuthGuard,
-    RolesGuard,
-  ],
-  exports: [JwtAuthGuard, RolesGuard, JwtModule]
+  providers: [AuthService, JwtAuthGuard, RolesGuard],
+  exports: [JwtAuthGuard, RolesGuard, JwtModule],
 })
 export class AuthModule {}

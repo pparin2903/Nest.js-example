@@ -4,9 +4,12 @@ import {
   Body,
   UnauthorizedException,
   HttpCode,
+  Req,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './roles.decorator';
+import { UsersService } from 'src/users/users.service';
+import { UserState } from 'src/enum/config.enum';
 // import { HttpService } from '@nestjs/axios';
 // import { firstValueFrom } from 'rxjs';
 // import { ConfigService } from '@nestjs/config';
@@ -17,6 +20,7 @@ export class AuthController {
 
   constructor(
     private authService: AuthService,
+    private readonly userService: UsersService,
     // private readonly httpService: HttpService,
     // private readonly configService: ConfigService,
   ) {
@@ -34,6 +38,9 @@ export class AuthController {
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    return this.authService.login(user);
+
+    const token = await this.authService.login(user);
+    this.userService.updateUserState(token.access_token, UserState.ONLINE);
+    return token;
   }
 }
