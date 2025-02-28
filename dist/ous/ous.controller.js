@@ -50,6 +50,7 @@ let OusController = class OusController {
 exports.OusController = OusController;
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, roles_decorator_1.Roles)(config_enum_1.UserRole.ADMIN, config_enum_1.UserRole.SUPERADMIN),
     (0, common_1.Get)('findou'),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),

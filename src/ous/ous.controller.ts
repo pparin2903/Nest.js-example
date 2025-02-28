@@ -20,6 +20,7 @@ export class OusController {
   constructor(private readonly ousService: OusService) {}
 
   @UseGuards(JwtAuthGuard)
+  @Roles(UserRole.ADMIN, UserRole.SUPERADMIN)
   @Get('findou')
   findOuByUser(@Req() req): Promise<void> {
     const authHeader = req.headers.authorization;
