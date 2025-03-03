@@ -28,6 +28,10 @@ const menus_module_1 = require("./menus/menus.module");
 const menus_entity_1 = require("./menus/menus.entity");
 const role_details_module_1 = require("./role_details/role_details.module");
 const role_details_entity_1 = require("./role_details/role_details.entity");
+const helpdesk_gateway_1 = require("./helpdesk/helpdesk.gateway");
+const helpdesk_service_1 = require("./helpdesk/helpdesk.service");
+const otp_module_1 = require("./otp/otp.module");
+const otp_service_1 = require("./otp/otp.service");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -59,10 +63,14 @@ exports.AppModule = AppModule = __decorate([
             menus_module_1.MenusModule,
             menus_module_1.MenusModule,
             role_details_module_1.RoleDetailsModule,
+            otp_module_1.OtpModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [
             app_service_1.AppService,
+            helpdesk_gateway_1.HelpdeskGateway,
+            helpdesk_service_1.HelpdeskService,
+            otp_service_1.OtpService,
             {
                 provide: core_1.APP_GUARD,
                 useClass: jwt_auth_guard_1.JwtAuthGuard,

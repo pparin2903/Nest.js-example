@@ -19,6 +19,10 @@ import { MenusModule } from './menus/menus.module';
 import { Menu } from './menus/menus.entity';
 import { RoleDetailsModule } from './role_details/role_details.module';
 import { RoleDetail } from './role_details/role_details.entity';
+import { HelpdeskGateway } from './helpdesk/helpdesk.gateway';
+import { HelpdeskService } from './helpdesk/helpdesk.service';
+import { OtpModule } from './otp/otp.module';
+import { OtpService } from './otp/otp.service';
 
 @Module({
   imports: [
@@ -47,10 +51,14 @@ import { RoleDetail } from './role_details/role_details.entity';
     MenusModule,
     MenusModule,
     RoleDetailsModule,
+    OtpModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
+    HelpdeskGateway,
+    HelpdeskService,
+    OtpService,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
