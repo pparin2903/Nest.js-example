@@ -29,6 +29,8 @@ export class User {
   org_id: number;
   @Column({ type: 'bigint' })
   dept_id: number;
+  @Column({ type: 'bigint' })
+  role_id: number;
 
   @Column({ type: 'varchar', length: 255 })
   create_by: string;

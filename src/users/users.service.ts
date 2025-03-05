@@ -35,9 +35,8 @@ export class UsersService {
           us.first_name,
           us.last_name,
 	        r.role_code
-        FROM users us 
-        LEFT JOIN user_details usd ON us.id = usd.user_id
-        LEFT JOIN roles r ON usd.role_id = r.id
+        FROM user us 
+        LEFT JOIN role r ON us.role_id = r.id
         WHERE user_name = ? AND password = ? AND us.user_status IS TRUE LIMIT 1
       `,
       [user_name, password],
@@ -98,6 +97,7 @@ export class UsersService {
       );
     }
     user.user_status = true;
+    user.create_by = 'User';
     user.update_by = 'User';
     user.user_state = UserState.OFFLINE;
     return this.userRepository.save(user);
@@ -117,7 +117,7 @@ export class UsersService {
 
     const response = await this.userRepository.query(
       `
-        UPDATE users SET user_state = ? WHERE id = ?
+        UPDATE user SET user_state = ? WHERE id = ?
       `,
       [state, decoded.id],
     );

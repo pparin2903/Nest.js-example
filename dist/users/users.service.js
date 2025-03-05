@@ -43,9 +43,8 @@ let UsersService = class UsersService {
           us.first_name,
           us.last_name,
 	        r.role_code
-        FROM users us 
-        LEFT JOIN user_details usd ON us.id = usd.user_id
-        LEFT JOIN roles r ON usd.role_id = r.id
+        FROM user us 
+        LEFT JOIN role r ON us.role_id = r.id
         WHERE user_name = ? AND password = ? AND us.user_status IS TRUE LIMIT 1
       `, [user_name, password]);
         if (!user) {
@@ -82,6 +81,7 @@ let UsersService = class UsersService {
             throw new common_1.HttpException({ message: `email is already taken` }, common_1.HttpStatus.BAD_REQUEST);
         }
         user.user_status = true;
+        user.create_by = 'User';
         user.update_by = 'User';
         user.user_state = config_enum_1.UserState.OFFLINE;
         return this.userRepository.save(user);
@@ -97,7 +97,7 @@ let UsersService = class UsersService {
     async updateUserState(token, state) {
         const decoded = this.jwtService.decode(token);
         const response = await this.userRepository.query(`
-        UPDATE users SET user_state = ? WHERE id = ?
+        UPDATE user SET user_state = ? WHERE id = ?
       `, [state, decoded.id]);
         return response;
     }

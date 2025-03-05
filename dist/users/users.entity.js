@@ -55,6 +55,10 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "dept_id", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ type: 'bigint' }),
+    __metadata("design:type", Number)
+], User.prototype, "role_id", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'varchar', length: 255 }),
     __metadata("design:type", String)
 ], User.prototype, "create_by", void 0);
