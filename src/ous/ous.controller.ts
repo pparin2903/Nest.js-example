@@ -12,7 +12,7 @@ import {
 import { OusService } from './ous.service';
 import { Ou } from './ous.entity';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { Roles } from 'src/auth/roles.decorator';
+import { Public, Roles } from 'src/auth/roles.decorator';
 import { UserRole } from 'src/enum/config.enum';
 
 @Controller('ous')
@@ -20,7 +20,7 @@ export class OusController {
   constructor(private readonly ousService: OusService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Roles(UserRole.ADMIN, UserRole.SUPERADMIN)
+  @Public()
   @Get('findou')
   findOuByUser(@Req() req): Promise<void> {
     const authHeader = req.headers.authorization;
