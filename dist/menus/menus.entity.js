@@ -55,6 +55,6 @@ __decorate([
     __metadata("design:type", Date)
 ], Menu.prototype, "update_date", void 0);
 exports.Menu = Menu = __decorate([
-    (0, typeorm_1.Entity)('menus')
+    (0, typeorm_1.Entity)('menu')
 ], Menu);
 //# sourceMappingURL=menus.entity.js.map

@@ -47,6 +47,18 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "user_state", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ type: 'bigint' }),
+    __metadata("design:type", Number)
+], User.prototype, "org_id", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'bigint' }),
+    __metadata("design:type", Number)
+], User.prototype, "dept_id", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'varchar', length: 255 }),
+    __metadata("design:type", String)
+], User.prototype, "create_by", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'varchar', length: 255 }),
     __metadata("design:type", String)
 ], User.prototype, "update_by", void 0);
@@ -59,6 +71,6 @@ __decorate([
     __metadata("design:type", Date)
 ], User.prototype, "update_date", void 0);
 exports.User = User = __decorate([
-    (0, typeorm_1.Entity)('users')
+    (0, typeorm_1.Entity)('user')
 ], User);
 //# sourceMappingURL=users.entity.js.map

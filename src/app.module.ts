@@ -6,10 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/users.entity';
 import { RolesModule } from './roles/roles.module';
-import { OusModule } from './ous/ous.module';
 import { Role } from './roles/roles.entity';
-import { Ou } from './ous/ous.entity';
-import { UserDetail } from './user_details/user_details.entity';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
@@ -23,6 +20,12 @@ import { HelpdeskGateway } from './helpdesk/helpdesk.gateway';
 import { HelpdeskService } from './helpdesk/helpdesk.service';
 import { OtpModule } from './otp/otp.module';
 import { OtpService } from './otp/otp.service';
+import { OrganizationModule } from './organization/organization.module';
+import { DepartmentModule } from './department/department.module';
+import { OrganizationDetailModule } from './organization_detail/organization_detail.module';
+import { Organization } from './organization/organization.entity';
+import { OrganizationDetail } from './organization_detail/organization_detail.entity';
+import { Department } from './department/department.entity';
 
 @Module({
   imports: [
@@ -38,7 +41,15 @@ import { OtpService } from './otp/otp.service';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [User, Role, Ou, UserDetail, Menu, RoleDetail],
+        entities: [
+          User,
+          Role,
+          Menu,
+          RoleDetail,
+          Organization,
+          OrganizationDetail,
+          Department,
+        ],
         synchronize: true,
       }),
       inject: [ConfigService],
@@ -46,12 +57,13 @@ import { OtpService } from './otp/otp.service';
     HttpModule,
     UsersModule,
     RolesModule,
-    OusModule,
     AuthModule,
-    MenusModule,
     MenusModule,
     RoleDetailsModule,
     OtpModule,
+    OrganizationModule,
+    DepartmentModule,
+    OrganizationDetailModule,
   ],
   controllers: [AppController],
   providers: [

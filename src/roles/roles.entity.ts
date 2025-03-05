@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('roles')
+@Entity('role')
 export class Role {
   @PrimaryGeneratedColumn('increment', { type: 'bigint' })
   id: number;

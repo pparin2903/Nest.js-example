@@ -43,6 +43,6 @@ __decorate([
     __metadata("design:type", Date)
 ], Role.prototype, "update_date", void 0);
 exports.Role = Role = __decorate([
-    (0, typeorm_1.Entity)('roles')
+    (0, typeorm_1.Entity)('role')
 ], Role);
 //# sourceMappingURL=roles.entity.js.map

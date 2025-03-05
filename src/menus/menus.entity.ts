@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('menus')
+@Entity('menu')
 export class Menu {
   @PrimaryGeneratedColumn('increment', { type: 'bigint' })
   id: number;

@@ -3,10 +3,10 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('role_details')
+@Entity('role_detail')
 export class RoleDetail {
   @PrimaryGeneratedColumn('increment', { type: 'bigint' })
   id: number;
@@ -26,6 +26,8 @@ export class RoleDetail {
   delete_permission: boolean;
   @Column({ default: false })
   export_permission: boolean;
+  @Column({ default: false })
+  role_detail_status: boolean;
 
   @Column({ type: 'varchar', length: 255 })
   create_by: string;

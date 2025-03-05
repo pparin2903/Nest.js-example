@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('users')
+@Entity('user')
 export class User {
   @PrimaryGeneratedColumn('increment', { type: 'bigint' })
   id: number;
@@ -25,7 +25,13 @@ export class User {
   user_status: boolean;
   @Column({ type: 'varchar', length: 255 })
   user_state: string;
+  @Column({ type: 'bigint' })
+  org_id: number;
+  @Column({ type: 'bigint' })
+  dept_id: number;
 
+  @Column({ type: 'varchar', length: 255 })
+  create_by: string;
   @Column({ type: 'varchar', length: 255 })
   update_by: string;
   @CreateDateColumn()

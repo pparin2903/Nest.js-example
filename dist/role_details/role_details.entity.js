@@ -47,6 +47,10 @@ __decorate([
     __metadata("design:type", Boolean)
 ], RoleDetail.prototype, "export_permission", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ default: false }),
+    __metadata("design:type", Boolean)
+], RoleDetail.prototype, "role_detail_status", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'varchar', length: 255 }),
     __metadata("design:type", String)
 ], RoleDetail.prototype, "create_by", void 0);
@@ -63,6 +67,6 @@ __decorate([
     __metadata("design:type", Date)
 ], RoleDetail.prototype, "update_date", void 0);
 exports.RoleDetail = RoleDetail = __decorate([
-    (0, typeorm_1.Entity)('role_details')
+    (0, typeorm_1.Entity)('role_detail')
 ], RoleDetail);
 //# sourceMappingURL=role_details.entity.js.map

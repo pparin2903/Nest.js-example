@@ -7,6 +7,7 @@ export declare class RoleDetail {
     update_permission: boolean;
     delete_permission: boolean;
     export_permission: boolean;
+    role_detail_status: boolean;
     create_by: string;
     update_by: string;
     create_date: Date;
