@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as OTPAuth from 'otpauth';
 import * as nodemailer from 'nodemailer';
 
@@ -60,27 +60,34 @@ export class OtpService {
       return { message: 'OTP sent successfully' };
     } catch (error) {
       console.error('Error sending OTP email:', error);
-      return { message: 'Failed to send OTP email', error };
+      throw new HttpException(
+        'Error sending OTP email',
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 
   async verifyOtp(email: string, otp: string) {
-    const otpEntry = this.otpStorage.get(email);
+    try {
+      const otpEntry = this.otpStorage.get(email);
 
-    if (!otpEntry) {
-      return { valid: false, message: 'OTP not found for the email' };
-    }
+      if (!otpEntry) {
+        return { valid: false, message: 'OTP not found for the email' };
+      }
 
-    if (new Date() >= otpEntry.expiresAt) {
-      this.otpStorage.delete(email);
-      return { valid: false, message: 'OTP has expired' };
-    }
+      if (new Date() >= otpEntry.expiresAt) {
+        this.otpStorage.delete(email);
+        return { valid: false, message: 'OTP has expired' };
+      }
 
-    if (otpEntry.otp === otp) {
-      this.otpStorage.delete(email);
-      return { valid: true, message: 'OTP is valid' };
-    } else {
-      return { valid: false, message: 'Invalid OTP' };
+      if (otpEntry.otp === otp) {
+        this.otpStorage.delete(email);
+        return { valid: true, message: 'OTP is valid' };
+      } else {
+        return { valid: false, message: 'Invalid OTP' };
+      }
+    } catch (error) {
+      return { valid: false, message: 'Verify OTP Failed.' };
     }
   }
 }

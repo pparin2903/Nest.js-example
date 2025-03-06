@@ -4,10 +4,6 @@ export declare class OtpController {
     constructor(otpService: OtpService);
     sendOtp(email: string): Promise<{
         message: string;
-        error?: undefined;
-    } | {
-        message: string;
-        error: any;
     }>;
     verifyOtp(body: {
         email: string;

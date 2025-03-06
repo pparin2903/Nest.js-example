@@ -59,24 +59,29 @@ let OtpService = class OtpService {
         }
         catch (error) {
             console.error('Error sending OTP email:', error);
-            return { message: 'Failed to send OTP email', error };
+            throw new common_1.HttpException('Error sending OTP email', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async verifyOtp(email, otp) {
-        const otpEntry = this.otpStorage.get(email);
-        if (!otpEntry) {
-            return { valid: false, message: 'OTP not found for the email' };
+        try {
+            const otpEntry = this.otpStorage.get(email);
+            if (!otpEntry) {
+                return { valid: false, message: 'OTP not found for the email' };
+            }
+            if (new Date() >= otpEntry.expiresAt) {
+                this.otpStorage.delete(email);
+                return { valid: false, message: 'OTP has expired' };
+            }
+            if (otpEntry.otp === otp) {
+                this.otpStorage.delete(email);
+                return { valid: true, message: 'OTP is valid' };
+            }
+            else {
+                return { valid: false, message: 'Invalid OTP' };
+            }
         }
-        if (new Date() >= otpEntry.expiresAt) {
-            this.otpStorage.delete(email);
-            return { valid: false, message: 'OTP has expired' };
-        }
-        if (otpEntry.otp === otp) {
-            this.otpStorage.delete(email);
-            return { valid: true, message: 'OTP is valid' };
-        }
-        else {
-            return { valid: false, message: 'Invalid OTP' };
+        catch (error) {
+            return { valid: false, message: 'Verify OTP Failed.' };
         }
     }
 };

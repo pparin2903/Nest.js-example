@@ -10,10 +10,6 @@ export declare class OtpService {
     constructor();
     sendOtp(email: string): Promise<{
         message: string;
-        error?: undefined;
-    } | {
-        message: string;
-        error: any;
     }>;
     verifyOtp(email: string, otp: string): Promise<{
         valid: boolean;
