@@ -29,6 +29,7 @@ let AuthService = class AuthService {
     async login(user) {
         const payload = user;
         return {
+            id: payload.id,
             user_name: payload.user_name,
             first_name: payload.first_name,
             last_name: payload.last_name,

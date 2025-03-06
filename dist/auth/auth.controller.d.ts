@@ -6,6 +6,7 @@ export declare class AuthController {
     private readonly loginAPI;
     constructor(authService: AuthService, userService: UsersService);
     login(body: any): Promise<{
+        id: any;
         user_name: any;
         first_name: any;
         last_name: any;
