@@ -25,11 +25,11 @@ export class User {
   user_status: boolean;
   @Column({ type: 'varchar', length: 255 })
   user_state: string;
-  @Column({ type: 'bigint' })
+  @Column({ type: 'bigint', default: 0 })
   org_id: number;
-  @Column({ type: 'bigint' })
+  @Column({ type: 'bigint', default: 0 })
   dept_id: number;
-  @Column({ type: 'bigint' })
+  @Column({ type: 'bigint', default: 0 })
   role_id: number;
 
   @Column({ type: 'varchar', length: 255 })
